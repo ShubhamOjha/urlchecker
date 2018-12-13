@@ -10,19 +10,19 @@ def checkjquery(url,getversion,verbose):
     if resp.status_code==200:
         soup=BeautifulSoup(resp.text,'html.parser')
         data['success'] = 'true'
-        f=False
+        jquery_found=False
         for src in soup.find_all('script'):
             findjquery=str(src.get('src')).find('jquery')
             if findjquery !=-1:
                 data['uses_jquery'] = 'yes'
-                f=True;
+                jquery_found=True;
                 if getversion=='yes':
                     version=str(src.get('src'))[findjquery+7:].split('.')
                     data['version'] = version[0][-2:]+'.'+version[1]
                 if verbose=='yes':
                     data['found_in_line'] = str(src)
 
-        if f!=True:
+        if jquery_found!=True:
         	data['uses_jquery'] = 'no'
 
         #json_data = json.dumps(data)

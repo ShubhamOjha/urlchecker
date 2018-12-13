@@ -3,10 +3,10 @@ from django.http import JsonResponse
 from .logic import checkjquery
 
 def jquerycheckView(request):
-    if request.is_ajax() and request.method == "GET":
-        url=str(request.GET.get('url', ''))
-        getversion=str(request.GET.get('getversion', ''))
-        verbose=str(request.GET.get('verbose', ''))
+    if request.method == "GET":
+        url=request.GET.get('url', '')
+        getversion=request.GET.get('getversion', '')
+        verbose=request.GET.get('verbose', '')
         return JsonResponse( checkjquery(url,getversion,verbose))
     else:
         data = {'success' : 'False'}
